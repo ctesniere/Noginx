@@ -1,0 +1,18 @@
+extends layout
+block content
+    h1= title
+    | <div id='msgSuccess' class="alert alert-success"></div>
+    | <div id='msgDanger'class="alert alert-danger"></div>
+    #addUser
+        fieldset
+            input#inputUserName(type='text', placeholder='Username')
+            input#inputUserEmail(type='text', placeholder='Email')
+            br
+            input#inputUserFullname(type='text', placeholder='Full Name')
+            input#inputUserAge(type='text', placeholder='Age')
+            br
+            input#inputUserLocation(type='text', placeholder='Location')
+            input#inputUserGender(type='text', placeholder='gender')
+            br
+            br
+            button#btnAddUser Add User

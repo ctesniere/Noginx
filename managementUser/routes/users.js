@@ -3,6 +3,14 @@ var config = require('../config/config');
 var router = express.Router();
 
 /**
+ * Ajout d'un utilisateur
+ */
+router.get('/new', function(req, res) {
+    res.render('usernew', {title : "Ajout d'un nouveau utilisateur"});
+});
+
+
+/**
  * GET userlist
  */
 router.get('/userlist', function(req, res) {
