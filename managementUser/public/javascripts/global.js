@@ -105,22 +105,18 @@ function addUser(event) {
 
                     // Clear the form inputs
                     $('#addUser fieldset input').val('');
-
-                    // Update the table
-                    populateTable();
-
+                    $('#msgDanger').removeClass("visible");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");
                 }
                 else {
 
                     // If something goes wrong, alert the error message that our service returned
-                    alert('Error: ' + response.msg);
-
+                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");
                 }
             });
-    }
-    else {
+    } else {
         // If errorCount is more than 0, error out
-        alert('Please fill in all fields');
+        $('#msgDanger').text('Please fill in all fields').addClass("visible");
         return false;
     }
 };
