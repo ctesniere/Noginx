@@ -62,6 +62,8 @@ function showUserInfo(event) {
     var thisUserObject = userListData[arrayPosition];
 
     //Populate Info Box
+    $('#userInfoUserName').text(thisUserObject.username);
+    $('#userInfoEmail').text(thisUserObject.email);
     $('#userInfoName').text(thisUserObject.fullname);
     $('#userInfoAge').text(thisUserObject.age);
     $('#userInfoGender').text(thisUserObject.gender);
@@ -147,7 +149,6 @@ function deleteUser(event) {
 
                 // Update the table
                 populateTable();
-
             });
 
     }
@@ -155,7 +156,6 @@ function deleteUser(event) {
 
         // If they said no to the confirm, do nothing
         return false;
-
     }
 
 };
