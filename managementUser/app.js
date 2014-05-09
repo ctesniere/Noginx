@@ -69,6 +69,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
 // chat events
 io.sockets.on('connection', function (socket) {
     socket.on('sendchat', function (data) {

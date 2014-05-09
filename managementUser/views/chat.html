@@ -5,8 +5,12 @@
 
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
-		// call the server-side function 'adduser' and send one parameter (value of prompt)
-		socket.emit('adduser', prompt("What's your name?"));
+		// call the server-side function 'adduser' and send one parameter (value of prompt)		
+		if(document.URL.indexOf('?') < 0)			
+			username = prompt("Nickname ?");
+		else
+			username = getParamValue('username', document.URL);
+		socket.emit('adduser', username);
 	});
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
@@ -43,6 +47,13 @@
 			}
 		});
 	});
+
+	function getParamValue(param,url){
+		var u = url == undefined ? document.location.href : url;
+		var reg = new RegExp('(\\?|&|^)'+param+'=(.*?)(&|$)');
+		matches = u.match(reg);
+		return matches[2] != undefined ? decodeURIComponent(matches[2]).replace(/\+/g,' ') : '';
+	}
 
 </script>
 <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
