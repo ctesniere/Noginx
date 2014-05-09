@@ -121,6 +121,59 @@ function addUser(event) {
     }
 };
 
+
+// Add User
+function edit(event) {
+    event.preventDefault();
+
+    // Super basic validation - increase errorCount variable if any fields are blank
+    var errorCount = 0;
+    $('#addUser input').each(function(index, val) {
+        if($(this).val() === '') { errorCount++; }
+    });
+
+    // Check and make sure errorCount's still at zero
+    if(errorCount === 0) {
+
+        // If it is, compile all user info into one object
+        var newUser = {
+            'username': $('#addUser fieldset input#inputUserName').val(),
+            'email': $('#addUser fieldset input#inputUserEmail').val(),
+            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
+            'age': $('#addUser fieldset input#inputUserAge').val(),
+            'location': $('#addUser fieldset input#inputUserLocation').val(),
+            'gender': $('#addUser fieldset input#inputUserGender').val()
+        }
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+            type: 'POST',
+            data: newUser,
+            url: '/users/adduser',
+            dataType: 'JSON'
+        }).done(function( response ) {
+
+                // Check for successful (blank) response
+                if (response.msg === '') {
+
+                    // Clear the form inputs
+                    $('#addUser fieldset input').val('');
+                    $('#msgDanger').removeClass("visible");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");
+                }
+                else {
+
+                    // If something goes wrong, alert the error message that our service returned
+                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");
+                }
+            });
+    } else {
+        // If errorCount is more than 0, error out
+        $('#msgDanger').text('Please fill in all fields').addClass("visible");
+        return false;
+    }
+};
+
 // Delete User
 function deleteUser(event) {
 

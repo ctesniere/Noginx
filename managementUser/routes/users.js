@@ -1,7 +1,7 @@
 var express = require('express');
 var config = require('../config/config');
 var router = express.Router();
-
+var ObjectId = require('mongodb').ObjectID;
 
 var Model = {
     user : function(u) {
@@ -58,6 +58,95 @@ router.delete('/deleteuser/:id', function(req, res) {
     });
 });
 
+
+/**
+ * Edition d'un user
+ * url - /users/deleteuser/:id
+ * method - GET
+ */
+router.get('/edit/:id', function(req, res) {
+    var username;
+    var fullname;
+    var location;
+    var email;
+    var age;
+    var gender;
+
+    req.db.collection(config.mongo.table.userlist).find({"_id" : ObjectId(req.params.id)}).toArray(function (err, items) {
+
+                console.log(items);
+
+               if(items!=null && items.length>0)
+               {
+                   items.forEach(function(item){
+                        username = item.username;
+                        fullname = item.fullname;
+                        location = item.location;
+                        email = item.email;
+                        age = item.age;
+                        gender = item.gender;
+                   })
+                   res.render('edit', { title: 'Editer utilisateur',
+                                        username:username,
+                                        fullname:fullname,
+                                        location:location,
+                                        email:email,
+                                        age:age,
+                                        gender:gender,
+                                        id:req.params.id});
+               }
+    });
+});
+
+/**
+ * Edition d'un user
+ * url - /users/deleteuser/:id
+ * method - GET
+ */
+router.post('/edit', function(req, res) {
+
+console.log(req.body);
+    req.db.collection(config.mongo.table.userlist).update({_id: ObjectId(req.body.id)}, 
+
+        {$set: {username:req.body.username,
+      fullname:req.body.fullname,
+      location:req.body.location,
+      email:req.body.email,
+      age:req.body.age,
+      gender:req.body.gender}}, function(err) {
+        if(err) {
+            return console.log('update error', err);
+        }
+    });
+/*
+    req.db.collection(config.mongo.table.userlist).findAndModify({
+    query: { _id: ObjectId(req.body.id)},
+    sort: { rating: 1 },
+    update: { $inc: { username:req.body.username,
+      fullname:req.body.fullname,
+      location:req.body.location,
+      email:req.body.email,
+      age:req.body.age,
+      gender:req.body.gender } }
+});
+*/
+/*
+    req.db.collection(config.mongo.table.userlist).update(
+   { _id: ObjectId(req.body.id) },
+   {
+      username:req.body.username,
+      fullname:req.body.fullname,
+      location:req.body.location,
+      email:req.body.email,
+      age:req.body.age,
+      gender:req.body.gender
+   },
+   { upsert: true }
+   );
+*/
+    
+    res.render('index', { title: 'Gestion des utilisateurs' });
+});
 /**
  * Affichage du formulaire de recherche
  * url - /users/search

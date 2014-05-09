@@ -1,0 +1,20 @@
+extends layout
+block content
+    h1= title
+    | <div id='msgSuccess' class="alert alert-success"></div>
+    | <div id='msgDanger'class="alert alert-danger"></div>
+
+    form#formUpdate(method="post",action="/users/edit")
+
+            input#username( type='text', placeholder='Username' value=username name='username')
+            input#email(type='text', placeholder='Email' value=email name='email')
+            br
+            input#fullname(type='text', placeholder='Full Name' value=fullname name='fullname')
+            input#userage(type='text', placeholder='Age' value=age  name='age')
+            br
+            input#location(type='text', placeholder='Location' value=location  name='location')
+            input#gender(type='text', placeholder='gender' value=gender  name='gender')
+            input#id(type='hidden', placeholder='id' value=id  name='id')
+            br
+            br
+            button#btnUpdateUser(type="submit") Update
