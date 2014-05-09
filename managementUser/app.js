@@ -31,8 +31,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Fait de la db accessible à tous les routeurs
 app.use(function(req,res,next){
     req.db = db;
-    res.cookie('user', '', { maxAge: 900000, httpOnly: true });
-    next();
+    //console.log(req);
+
+    if (req.cookies.user == null || req.cookies.user == '') {
+        if (req.originalUrl != "/connect")
+            res.redirect('/connect');
+        else
+            next();
+    } else {
+        console.log(req.cookies.user);
+        next();
+    }
 });
 
 app.use('/', routes);

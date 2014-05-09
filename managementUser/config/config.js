@@ -8,7 +8,10 @@ var Config = {
             messages:"messages"
         }
     },
-    process_port: 3000
+    process_port: 3000,
+    cookie: {
+        maxAge: 900000
+    }
 };
 
 module.exports = Config;
