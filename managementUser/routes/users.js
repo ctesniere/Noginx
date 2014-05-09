@@ -24,7 +24,7 @@ router.get('/new', function(req, res) {
  * url - /users/userlist
  * method - GET
  */
-router.get('/userlist', function(req, res) {
+router.get('/list', function(req, res) {
     req.db.collection(config.mongo.table.userlist).find().toArray(function (err, items) {
         if (err) throw err;
         res.json(items);

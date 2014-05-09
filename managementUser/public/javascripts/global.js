@@ -33,17 +33,10 @@ $(document).ready(function() {
 
 // Remplie la table des users
 function populateTable() {
-
-    // Initialise la variable
     var tableContent = '';
-
-    // Appel en Ajax pour JSON
-    $.getJSON( '/users/userlist', function( data ) {
-
-        // Stick our user data array into a userlist variable in the global object
+    $.getJSON( '/users/list', function( data ) {
         userListData = data;
-
-        // For each item in our JSON, add a table row and cells to the content string
+        console.log(data);
         $.each(data, function(){
             tableContent += '<tr>';
             tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
@@ -53,8 +46,6 @@ function populateTable() {
             tableContent += '<td><a href="/chat?username=' + this.username + '">Go !</a>';
             tableContent += '</tr>';
         });
-
-        // Inject the whole content string into our existing HTML table
         $('#userList table tbody').html(tableContent);
     });
 };
@@ -81,6 +72,13 @@ function showUserInfo(event) {
     $('#userInfoAge').text(thisUserObject.age);
     $('#userInfoGender').text(thisUserObject.gender);
     $('#userInfoLocation').text(thisUserObject.location);
+    var builderMessage = "";
+    if (thisUserObject.message != null && thisUserObject.message.length > 0) {
+        for (var i = 0; i < thisUserObject.message.length; ++i) {
+            builderMessage += '<div>' + thisUserObject.message[i] + '</div>';
+        }
+    }
+    $('#messageUser').html(builderMessage);
 
 };
 
@@ -131,7 +129,6 @@ function addUser(event) {
                 }
             });
     } else {
-        // If errorCount is more than 0, error out
         $('#msgDanger').text('Renseigner tous les champs').addClass("visible");;
         return false;
     }
@@ -184,7 +181,6 @@ function edit(event) {
                 }
             });
     } else {
-        // If errorCount is more than 0, error out
         $('#msgDanger').text('Renseigner tous les champs').addClass("visible");;
         return false;
     }
@@ -194,20 +190,15 @@ function edit(event) {
 function deleteUser(event) {
 
     event.preventDefault();
-
-    // Pop up a confirmation dialog
     var confirmation = confirm('Are you sure you want to delete this user?');
 
-    // Check and make sure the user confirmed
     if (confirmation === true) {
 
-        // If they did, do our delete
         $.ajax({
             type: 'DELETE',
             url: '/users/deleteuser/' + $(this).attr('rel')
         }).done(function( response ) {
 
-                // Check for a successful (blank) response
                 if (response.msg === '') {
                     $('#userInfoUserName').text("-");
                     $('#userInfoEmail').text("-");
@@ -225,8 +216,6 @@ function deleteUser(event) {
 
     }
     else {
-
-        // If they said no to the confirm, do nothing
         return false;
     }
 
