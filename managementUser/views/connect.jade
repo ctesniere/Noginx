@@ -1,0 +1,10 @@
+extends layout
+block content
+    h1= title
+    | <div id='msgSuccess' class="alert alert-success"></div>
+    | <div id='msgDanger'class="alert alert-danger"></div>
+    #addUser
+    form#formConnect(method="post",action="/")
+           input#inputUserName(type="text", placeholder="username", name="username")
+           input#inputUserEmail(type="text", placeholder="useremail", name="password")
+           button#btnSubmit(type="submit") submit
