@@ -36,7 +36,7 @@ router.get('/list', function(req, res) {
  * url - /users/adduser
  * method - GET
  */
-router.post('/adduser', function(req, res) {
+router.post('/add', function(req, res) {
 
     req.db.collection(config.mongo.table.userlist).insert(req.body, function(err, result){
         if (err) throw err;
