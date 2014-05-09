@@ -9,23 +9,26 @@ block content
             tbody
                 tr
                     td: span Username
-                    td: input#username( type='text', placeholder='Username' value=username name='username')
+                    td: input#username( type='text', placeholder='Username' value=item.username name='username')
                 tr
                     td: span Email
-                    td: input#email(type='text', placeholder='Email' value=email name='email')
+                    td: input#email(type='text', placeholder='Email' value=item.email name='email')
                 tr
                     td: span Fullname
-                    td: input#fullname(type='text', placeholder='Full Name' value=fullname name='fullname')
+                    td: input#fullname(type='text', placeholder='Full Name' value=item.fullname name='fullname')
                 tr
                     td: span Age
-                    td: input#userage(type='text', placeholder='Age' value=age  name='age')
+                    td: input#userage(type='text', placeholder='Age' value=item.age  name='age')
                 tr
                     td: span Location
-                    td: input#location(type='text', placeholder='Location' value=location  name='location')
+                    td: input#location(type='text', placeholder='Location' value=item.location  name='location')
                 tr
                     td: span Gender
-                    td: input#gender(type='text', placeholder='gender' value=gender  name='gender')
+                    td: input#gender(type='text', placeholder='Gender' value=item.gender  name='gender')
+                tr
+                    td: span Password
+                    td: input#password(type='password', placeholder='Password' value=item.password  name='password')
 
-        input#id(type='hidden', placeholder='id' value=id  name='id')
+        input#id(type='hidden', placeholder='id' value=item._id  name='id')
         br
         button#btnUpdateUser(type="submit") Update

@@ -60,42 +60,17 @@ router.delete('/deleteuser/:id', function(req, res) {
 
 
 /**
- * Edition d'un user
- * url - /users/deleteuser/:id
+ * Affichage de la page d'edition d'un user
+ * url - /users/edit/:id
  * method - GET
  */
 router.get('/edit/:id([0-9a-f]{24})', function(req, res) {
-    var username;
-    var fullname;
-    var location;
-    var email;
-    var age;
-    var gender;
-
-    req.db.collection(config.mongo.table.userlist).find({"_id" : ObjectId(req.params.id)}).toArray(function (err, items) {
-
-                console.log(items);
-
-               if(items!=null && items.length>0)
-               {
-                   items.forEach(function(item){
-                        username = item.username;
-                        fullname = item.fullname;
-                        location = item.location;
-                        email = item.email;
-                        age = item.age;
-                        gender = item.gender;
-                   })
-                   res.render('edit', { title: 'Editer utilisateur',
-                                        username:username,
-                                        fullname:fullname,
-                                        location:location,
-                                        email:email,
-                                        age:age,
-                                        gender:gender,
-                                        id:req.params.id});
-               }
-    });
+    req.db.collection(config.mongo.table.userlist).findOne({"_id" : ObjectId(req.params.id)}, function(err, item) {
+        console.log(item);
+        res.render('edit', {
+            title: 'Editer utilisateur',
+            item:item});
+        });
 });
 
 /**
