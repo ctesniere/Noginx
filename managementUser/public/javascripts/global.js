@@ -34,6 +34,7 @@ function populateTable() {
             tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
             tableContent += '<td>' + this.email + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="/chat?username=' + this.username + '">Go !</a>';
             tableContent += '</tr>';
         });
 
