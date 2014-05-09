@@ -74,7 +74,21 @@ app.use(function(err, req, res, next) {
 io.sockets.on('connection', function (socket) {
     socket.on('sendchat', function (data) {
         io.sockets.emit('updatechat', socket.username, data);
-    });
+        var newMsg = {
+            'username': socket.username,
+            'message': data
+        }
+        // Use AJAX to post the object
+        $.ajax({
+            type: 'POST',
+            data: newMsg,
+            url: '/newMsg',
+            dataType: 'JSON'
+        }).done(function( response ) {
+
+        }
+    )});
+
     socket.on('adduser', function(username){
         socket.username = username;
         usernames[username] = username;

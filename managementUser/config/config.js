@@ -4,7 +4,8 @@ var Config = {
         port:"27017",
         db:"nodetest",
         table : {
-            userlist:"userlist"
+            userlist:"userlist",
+            messages:"messages"
         }
     },
     process_port: 3000

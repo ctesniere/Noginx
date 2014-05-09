@@ -44,4 +44,17 @@ router.get('/disconnect', function(req, res) {
 	}
 });
 
+/**
+ * POST to newMsg
+ */
+router.post('/newMsg', function(req, res) {
+    req.db.collection(config.mongo.table.messages).insert(req.body, function(err, result){
+        res.send(
+            (err === null) ? { msg: '' } : { msg: err }
+        );
+    });
+});
+
+
+
 module.exports = router;

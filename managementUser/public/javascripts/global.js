@@ -157,6 +157,5 @@ function deleteUser(event) {
 
         // If they said no to the confirm, do nothing
         return false;
-    }
-
+    }       
 };
