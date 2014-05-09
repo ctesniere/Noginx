@@ -121,18 +121,18 @@ function addUser(event) {
                     // Clear the form inputs
                     $('#addUser fieldset input').val('');
                     $('#msgDanger').removeClass("visible");
-                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");;
 
                 }
                 else {
 
                     // If something goes wrong, alert the error message that our service returned
-                    $('#msgDanger').text('Error: ' + response.msg);
+                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");;
                 }
             });
     } else {
         // If errorCount is more than 0, error out
-        $('#msgDanger').text('Please fill in all fields');
+        $('#msgDanger').text('Renseigner tous les champs').addClass("visible");;
         return false;
     }
 };
@@ -175,17 +175,17 @@ function edit(event) {
                     // Clear the form inputs
                     $('#addUser fieldset input').val('');
                     $('#msgDanger').removeClass("visible");
-                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");;
                 }
                 else {
 
                     // If something goes wrong, alert the error message that our service returned
-                    $('#msgDanger').text('Error: ' + response.msg);
+                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");;
                 }
             });
     } else {
         // If errorCount is more than 0, error out
-        $('#msgDanger').text('Please fill in all fields');
+        $('#msgDanger').text('Renseigner tous les champs').addClass("visible");;
         return false;
     }
 };
