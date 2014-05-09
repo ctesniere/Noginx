@@ -8,7 +8,6 @@
                 <a href="/">Accueil</a>
                 <a href="/users/new">Ajouter un utilisateur</a>
                 <a href="/users/search">Rechercher un utilisateur</a>
-                <a href="/chat">Tchat</a>
         </ul>
 
 <script src="http://localhost:3001/socket.io/socket.io.js"></script>
@@ -18,9 +17,10 @@
 
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
-		// call the server-side function 'adduser' and send one parameter (value of prompt)		
-		if(document.URL.indexOf('?') < 0)			
-			username = prompt("Nickname ?");
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		if(document.URL.indexOf('?') < 0)
+			username = getUsernameFromCookie();
+			// username = prompt("Nickname ?");
 		else
 			username = getParamValue('username', document.URL);
 		socket.emit('adduser', username);
@@ -76,6 +76,20 @@
 			}
 		});
 	});
+
+	function getUsernameFromCookie() {
+		var cookie = document.cookie;
+		cookie = cookie.substring(cookie.indexOf('username'), cookie.length);
+		cookie = cookie.replace(/%22%3A%22/gi, '=');
+		cookie = cookie.replace(/%22%2C%22/gi, ';');
+		cookie = cookie.replace(/%40/gi, '@');
+		cookie = cookie.replace(/%20/gi, ' ');
+		cookie = cookie.replace(/%22%3A/gi, '=');
+		cookie = cookie.replace(/%2C%22/gi, ';');
+		cookie = cookie.replace(/%5B%22/gi, '[');
+		cookie = cookie.replace(/%22%5D/gi, ']');
+		return cookie.substring(cookie.indexOf('username=') + 9, cookie.indexOf(';'));
+	}
 
 	function getParamValue(param,url){
 		var u = url == undefined ? document.location.href : url;

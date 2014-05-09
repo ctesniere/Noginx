@@ -35,7 +35,7 @@ router.post('/connect', function (req, res) {
         req.db.collection(config.mongo.table.userlist)
                 .findOne({ $and: [{username: req.body.username}, {password: req.body.password}]}, function(err, item) {
             if (err != null || item != null) {
-                res.cookie('user', item, { maxAge: config.cookie.maxAge, httpOnly: true });
+                res.cookie('user', item, { maxAge: config.cookie.maxAge, httpOnly: false });
                 res.redirect('/');
             } else {
                 res.render('connect', {
@@ -58,7 +58,7 @@ router.post('/connect', function (req, res) {
  * method - GET
  */
 router.get('/disconnect', function (req, res) {
-    res.cookie('user', '', { maxAge: config.cookie.maxAge, httpOnly: true });
+    res.cookie('user', '', { maxAge: config.cookie.maxAge, httpOnly: false });
     res.redirect('/');
 });
 
