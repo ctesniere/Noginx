@@ -1,10 +1,11 @@
 extends layout_connect
 block content
     h1= title
-    | <div id='msgSuccess' class="alert alert-success"></div>
-    | <div id='msgDanger'class="alert alert-danger"></div>
-    #addUser
+    div#msgDanger.alert.alert-danger= error
     form#formConnect(method="post",action="/connect")
         input#inputUserName(type="text", placeholder="username", name="username")
         input#inputUserEmail(type="password", placeholder="password", name="password")
         button#btnSubmit(type="submit") submit
+
+
+

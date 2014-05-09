@@ -1,8 +1,8 @@
 extends layout
 block content
     h1= title
-    | <div id='msgSuccess' class="alert alert-success"></div>
-    | <div id='msgDanger'class="alert alert-danger"></div>
+    div#msgSuccess.alert.alert-success
+    div#msgSuccess.alert.alert-danger
     #addUser
         fieldset
             input#inputUserName(type='text', placeholder='Username')

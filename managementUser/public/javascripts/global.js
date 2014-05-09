@@ -8,9 +8,24 @@ $(document).ready(function() {
     populateTable();
 
     // Ajout de l'evenement pour le click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     $('#btnAddUser').on('click', addUser);
+    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+
+    var alert = document.getElementsByClassName('alert');
+    for (var i = 0; i < alert.length; ++i) {
+        console.log(alert[i].innerText);
+        if (alert[i].innerText)
+            alert[i].style.display = "block";
+    };
+//
+//    $('body').find('.error').each(function(idx, item) {
+//        if (/^\s*$/.test(item.text())){
+//            item.css({
+//                display : 'block'
+//            })
+//         }
+//    });
 
 });
 
@@ -106,17 +121,18 @@ function addUser(event) {
                     // Clear the form inputs
                     $('#addUser fieldset input').val('');
                     $('#msgDanger').removeClass("visible");
-                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !");
+
                 }
                 else {
 
                     // If something goes wrong, alert the error message that our service returned
-                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");
+                    $('#msgDanger').text('Error: ' + response.msg);
                 }
             });
     } else {
         // If errorCount is more than 0, error out
-        $('#msgDanger').text('Please fill in all fields').addClass("visible");
+        $('#msgDanger').text('Please fill in all fields');
         return false;
     }
 };
@@ -159,17 +175,17 @@ function edit(event) {
                     // Clear the form inputs
                     $('#addUser fieldset input').val('');
                     $('#msgDanger').removeClass("visible");
-                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");
+                    $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !");
                 }
                 else {
 
                     // If something goes wrong, alert the error message that our service returned
-                    $('#msgDanger').text('Error: ' + response.msg).addClass("visible");
+                    $('#msgDanger').text('Error: ' + response.msg);
                 }
             });
     } else {
         // If errorCount is more than 0, error out
-        $('#msgDanger').text('Please fill in all fields').addClass("visible");
+        $('#msgDanger').text('Please fill in all fields');
         return false;
     }
 };

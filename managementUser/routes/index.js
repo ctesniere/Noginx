@@ -16,7 +16,10 @@ router.get('/', function (req, res) {
  * method - GET
  */
 router.get('/connect', function (req, res) {
-    res.render('connect', { title: 'Connexion' });
+    res.render('connect', {
+        title: 'Connexion',
+        error: ''
+    });
 });
 
 /**
@@ -25,18 +28,27 @@ router.get('/connect', function (req, res) {
  * method - POST
  */
 router.post('/connect', function (req, res) {
-    if (req.body.username != null && req.body.password != null) {
+    console.log(req.body.username)
+    console.log(req.body.username);
+    console.log(req.body.password);
+    if (req.body.username && req.body.password) {
         req.db.collection(config.mongo.table.userlist)
                 .findOne({ $and: [{username: req.body.username}, {password: req.body.password}]}, function(err, item) {
             if (err != null || item != null) {
                 res.cookie('user', item, { maxAge: config.cookie.maxAge, httpOnly: true });
                 res.redirect('/');
             } else {
-                res.render('connect', { title: 'Connexion' });
+                res.render('connect', {
+                    title: 'Connexion',
+                    error: 'Utilisateur introuvable'
+                });
             }
         });
     } else {
-        res.render('connect', { title: 'Connexion' });
+        res.render('connect', {
+            title: 'Connexion',
+            error: 'Remplir tous les champs'
+        });
     }
 });
 
