@@ -39,7 +39,6 @@ app.use(function(req,res,next){
         else
             next();
     } else {
-        console.log(req.cookies.user);
         next();
     }
 });

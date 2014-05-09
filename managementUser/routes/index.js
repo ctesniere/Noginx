@@ -7,7 +7,7 @@ var user = null;
  * GET home page
  */
 router.get('/', function (req, res) {
-    res.render('index', { title: 'Gestion des utilisateurs' });
+    res.render('index', { title: 'Liste des utilisateurs' });
 });
 
 /**

@@ -6,23 +6,36 @@ block content
         #userInfo
             h2 User Info
             p
+                span#actionUser
+                    a(href='')#linkdeleteuser
                 strong Pseudo :&nbsp;
-                | <br><span id='userInfoUserName'>-</span><br>
+                br
+                span#userInfoUserName -
+                br
                 br
                 strong Email :&nbsp;
-                | <br><span id='userInfoEmail'>-</span><br>
+                br
+                span#userInfoEmail -
+                br
                 br
                 strong Name :&nbsp;
-                | <br><span id='userInfoName'>-</span><br>
+                br
+                span#userInfoName -
+                br
                 br
                 strong Age :&nbsp;
-                | <br><span id='userInfoAge'>-</span><br>
+                br
+                span#userInfoAge -
+                br
                 br
                 strong Location :&nbsp;
-                | <br><span id='userInfoLocation'>-</span><br>
+                br
+                span#userInfoLocation -
+                br
                 br
                 strong Gender :&nbsp;
-                | <br><span id='userInfoGender'>-</span><br>
+                br
+                span#userInfoGender -
             h2 Message
             p#messageUser
 
@@ -32,7 +45,4 @@ block content
                 thead
                     th UserName
                     th Email
-                    th Delete?
-                    th Edit
-                    th Chat
                 tbody

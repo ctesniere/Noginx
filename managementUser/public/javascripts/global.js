@@ -10,7 +10,7 @@ $(document).ready(function() {
     // Ajout de l'evenement pour le click
     $('#btnAddUser').on('click', addUser);
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+    $('#userInfo').on('click', 'a.linkdeleteuser', deleteUser);
 
     var alert = document.getElementsByClassName('alert');
     for (var i = 0; i < alert.length; ++i) {
@@ -41,9 +41,6 @@ function populateTable() {
             tableContent += '<tr>';
             tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
             tableContent += '<td>' + this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-            tableContent += '<td><a href="/users/edit/' + this._id + '">edit</a></td>';
-            tableContent += '<td><a href="/chat?username=' + this.username + '">Go !</a>';
             tableContent += '</tr>';
         });
         $('#userList table tbody').html(tableContent);
@@ -72,6 +69,18 @@ function showUserInfo(event) {
     $('#userInfoAge').text(thisUserObject.age);
     $('#userInfoGender').text(thisUserObject.gender);
     $('#userInfoLocation').text(thisUserObject.location);
+    var builderAction = "";
+    if (true) { // use cookie
+        builderAction += '<a href="#" class="linkdeleteuser" rel="' + thisUserObject._id + '">Delete</a>';
+        builderAction += ' | ';
+        builderAction += '<a href="/users/edit/' + thisUserObject._id + '">Edit</a></td>';
+        builderAction += ' | ';
+        builderAction += '<a href="/chat?username=' + thisUserObject.username + '">Chat !</a>';
+        builderAction += '<br><br>';
+    }
+    $('#actionUser').html(builderAction);
+
+
     var builderMessage = "";
     if (thisUserObject.message != null && thisUserObject.message.length > 0) {
         for (var i = 0; i < thisUserObject.message.length; ++i) {
@@ -206,6 +215,7 @@ function deleteUser(event) {
                     $('#userInfoAge').text("-");
                     $('#userInfoGender').text("-");
                     $('#userInfoLocation').text("-");
+                    $('#actionUser').text("");
                 } else {
                     alert('Error: ' + response.msg);
                 }
