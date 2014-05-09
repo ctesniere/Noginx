@@ -5,16 +5,27 @@ block content
     | <div id='msgDanger'class="alert alert-danger"></div>
 
     form#formUpdate(method="post",action="/users/edit")
+        table
+            tbody
+                tr
+                    td: span Username
+                    td: input#username( type='text', placeholder='Username' value=username name='username')
+                tr
+                    td: span Email
+                    td: input#email(type='text', placeholder='Email' value=email name='email')
+                tr
+                    td: span Fullname
+                    td: input#fullname(type='text', placeholder='Full Name' value=fullname name='fullname')
+                tr
+                    td: span Age
+                    td: input#userage(type='text', placeholder='Age' value=age  name='age')
+                tr
+                    td: span Location
+                    td: input#location(type='text', placeholder='Location' value=location  name='location')
+                tr
+                    td: span Gender
+                    td: input#gender(type='text', placeholder='gender' value=gender  name='gender')
 
-            input#username( type='text', placeholder='Username' value=username name='username')
-            input#email(type='text', placeholder='Email' value=email name='email')
-            br
-            input#fullname(type='text', placeholder='Full Name' value=fullname name='fullname')
-            input#userage(type='text', placeholder='Age' value=age  name='age')
-            br
-            input#location(type='text', placeholder='Location' value=location  name='location')
-            input#gender(type='text', placeholder='gender' value=gender  name='gender')
-            input#id(type='hidden', placeholder='id' value=id  name='id')
-            br
-            br
-            button#btnUpdateUser(type="submit") Update
+        input#id(type='hidden', placeholder='id' value=id  name='id')
+        br
+        button#btnUpdateUser(type="submit") Update
