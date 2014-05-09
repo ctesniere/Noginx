@@ -4,29 +4,25 @@ var userListData = [];
 // DOM Ready =============================================================
 $(document).ready(function() {
 
-    // Populate the user table on initial page load
+    // Initialise la table des infos des utilisateurs
     populateTable();
 
-    // Username link click
+    // Ajout de l'evenement pour le click
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-
-    // Add User button click
     $('#btnAddUser').on('click', addUser);
-
-    // Delete User link click
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
 
 });
 
 // Functions =============================================================
 
-// Fill table with data
+// Remplie la table des users
 function populateTable() {
 
-    // Empty content string
+    // Initialise la variable
     var tableContent = '';
 
-    // jQuery AJAX call for JSON
+    // Appel en Ajax pour JSON
     $.getJSON( '/users/userlist', function( data ) {
 
         // Stick our user data array into a userlist variable in the global object
@@ -143,8 +139,13 @@ function deleteUser(event) {
 
                 // Check for a successful (blank) response
                 if (response.msg === '') {
-                }
-                else {
+                    $('#userInfoUserName').text("-");
+                    $('#userInfoEmail').text("-");
+                    $('#userInfoName').text("-");
+                    $('#userInfoAge').text("-");
+                    $('#userInfoGender').text("-");
+                    $('#userInfoLocation').text("-");
+                } else {
                     alert('Error: ' + response.msg);
                 }
 
@@ -157,5 +158,13 @@ function deleteUser(event) {
 
         // If they said no to the confirm, do nothing
         return false;
+<<<<<<< HEAD
     }       
 };
+=======
+    }
+
+};
+
+
+>>>>>>> 5bfe66fa8294b47f7688a5834d1e5e911d9d00e7

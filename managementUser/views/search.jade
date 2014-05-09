@@ -1,0 +1,30 @@
+extends layout
+block content
+    h1= title
+    form#formSearchUser(method="post",action="/users/search")
+        input#inputUserName(type="text", placeholder="username", name="username")
+        button#btnSubmit(type="submit") submit
+
+    #userListSearch
+        table
+            thead
+                tr
+                    th Pseudo
+                    th Email
+                    th Name
+                    th Age
+                    th Location
+                    th Gender
+
+            tbody
+
+                each item, i in items
+                    tr
+                        td #{item.username}
+                        td #{item.email}
+                        td #{item.fullname}
+                        td #{item.age}
+                        td #{item.location}
+                        td #{item.gender}
+
+

@@ -4,6 +4,9 @@ var config = require('../config/config');
 var users_connected = {};
 var user = null;
 
+/**
+ * GET home page
+ */
 router.get('/', function(req, res) {
 	if(user==null)
 		res.render('connect', { title: 'Connexion' });
