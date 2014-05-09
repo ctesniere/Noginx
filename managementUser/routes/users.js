@@ -64,7 +64,7 @@ router.delete('/deleteuser/:id', function(req, res) {
  * url - /users/deleteuser/:id
  * method - GET
  */
-router.get('/edit/:id', function(req, res) {
+router.get('/edit/:id([0-9a-f]{24})', function(req, res) {
     var username;
     var fullname;
     var location;
