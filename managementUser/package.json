@@ -15,6 +15,7 @@
     "jade": "*",
     "mongodb": "*",
     "monk": "*",
-    "mongoskin": "*"
+    "mongoskin": "*",
+    "socket.io": "latest"
   }
 }
