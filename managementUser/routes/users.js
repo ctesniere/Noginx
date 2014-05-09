@@ -6,7 +6,6 @@ var router = express.Router();
 var Model = {
     user : function(u) {
         u.created_on = new Date();
-        hgvhgvh
         return u;
     }
 }

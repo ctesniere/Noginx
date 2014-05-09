@@ -34,6 +34,7 @@ function populateTable() {
             tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
             tableContent += '<td>' + this.email + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="/users/edit/' + this._id + '">edit</a></td>';
             tableContent += '<td><a href="/chat?username=' + this.username + '">Go !</a>';
             tableContent += '</tr>';
         });
@@ -158,13 +159,6 @@ function deleteUser(event) {
 
         // If they said no to the confirm, do nothing
         return false;
-<<<<<<< HEAD
-    }       
-};
-=======
     }
 
 };
-
-
->>>>>>> 5bfe66fa8294b47f7688a5834d1e5e911d9d00e7
