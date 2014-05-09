@@ -3,6 +3,7 @@ var io = require('socket.io');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var config = require('./config/config');
 
 // Database
@@ -21,6 +22,7 @@ var usernames = {};
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -29,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Fait de la db accessible à tous les routeurs
 app.use(function(req,res,next){
     req.db = db;
+    res.cookie('user', '', { maxAge: 900000, httpOnly: true });
     next();
 });
 
