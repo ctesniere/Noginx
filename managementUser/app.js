@@ -31,8 +31,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Fait de la db accessible à tous les routeurs
 app.use(function(req,res,next){
     req.db = db;
-    res.cookie('user', '', { maxAge: 900000, httpOnly: true });
-    next();
+    //console.log(req);
+
+    if (req.cookies.user == null || req.cookies.user == '') {
+        if (req.originalUrl != "/connect")
+            res.redirect('/connect');
+        else
+            next();
+    } else {
+        console.log(req.cookies.user);
+        next();
+    }
 });
 
 app.use('/', routes);
@@ -77,20 +86,18 @@ app.use(function(err, req, res, next) {
 io.sockets.on('connection', function (socket) {
     socket.on('sendchat', function (data) {
         io.sockets.emit('updatechat', socket.username, data);
-        var newMsg = {
-            'username': socket.username,
-            'message': data
-        }
-        // Use AJAX to post the object
-        $.ajax({
-            type: 'POST',
-            data: newMsg,
-            url: '/newMsg',
-            dataType: 'JSON'
-        }).done(function( response ) {
+        //var newMsg = {
+        //    'username': socket.username,
+        //    'message': data
+        //}
+        db.collection('userlist').update({username:socket.username}, {'$push':{message:data}}, function(err) {
+        if (err) throw err;
+        console.log('Updated!');
+    });
+        //db.collection(config.mongo.table.userlist).insert(newMsg, function(err, result){
 
-        }
-    )});
+    //});
+    });
 
     socket.on('adduser', function(username){
         socket.username = username;
