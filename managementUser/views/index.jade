@@ -1,10 +1,8 @@
 extends layout
 block content
     h1= title
-    p Welcome to our test
-    // Wrapper
+    p Bienvenue
     #wrapper
-        // USER INFO
         #userInfo
             h2 User Info
             p
@@ -25,8 +23,6 @@ block content
                 br
                 strong Gender :&nbsp;
                 | <br><span id='userInfoGender'>-</span><br>
-        // /USER INFO
-        // USER LIST
         h2 User List
         #userList
             table
@@ -37,5 +33,3 @@ block content
                     th Edit
                     th Chat
                 tbody
-        // /USER LIST
-    // /WRAPPER
