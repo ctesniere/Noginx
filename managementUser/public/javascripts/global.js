@@ -248,7 +248,7 @@ function deleteUser(event) {
                 }
 
                 // Update the table
-                populateTable();
+                getListUser();
             });
 
     } else {
