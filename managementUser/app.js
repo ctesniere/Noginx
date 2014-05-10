@@ -34,9 +34,8 @@ app.use(function(req,res,next){
             res.redirect('/connect');
         else
             next();
-    } else {
+    } else
         next();
-    }
 });
 
 app.use('/', routes);

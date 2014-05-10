@@ -8,9 +8,12 @@ var Config = {
             messages:"messages"
         }
     },
-    process_port: 3000,
+    process_port: 3002,
     cookie: {
         maxAge: 900000
+    },
+    socket_io: {
+        port:3001
     }
 };
 

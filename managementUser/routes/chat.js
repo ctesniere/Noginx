@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
     var app = express();
 
     var io = require('socket.io');
-    io = io.listen(app.listen(3001));
+    io = io.listen(app.listen(config.socket_io.port));
     io.sockets.on('connection', function (socket) {
         socket.on('sendchat', function (data) {
             io.sockets.emit('updatechat', socket.username, data);
