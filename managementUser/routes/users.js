@@ -80,14 +80,13 @@ router.get('/edit/:id([0-9a-f]{24})', function(req, res) {
  * method - GET
  */
 router.post('/edit', function(req, res) {
-
-console.log(req.body);
     req.db.collection(config.mongo.table.userlist).update({_id: ObjectId(req.body.id)}, {$set: {
         username:req.body.username,
         fullname:req.body.fullname,
         location:req.body.location,
         email:req.body.email,
         age:req.body.age,
+        password:req.body.password,
         gender:req.body.gender}}, function(err) {
         if(err) {
             return console.log('update error', err);

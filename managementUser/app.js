@@ -28,10 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Fait de la db accessible à tous les routeurs
 app.use(function(req,res,next){
+    // Fait de la db accessible à tous les routeurs
     req.db = db;
-    //console.log(req);
 
     if (req.cookies.user == null || req.cookies.user == '') {
         if (req.originalUrl != "/connect")
