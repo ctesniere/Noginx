@@ -70,8 +70,7 @@ function showUserInfo(event) {
     var builderAction = "";
     if (true) { // TODO use cookie
         builderAction += '<a href="#" class="linkdeleteuser" rel="' + thisUserObject._id + '">Delete</a> | ';
-        builderAction += '<a href="/users/edit/' + thisUserObject._id + '">Edit</a></td> | ';
-        builderAction += '<a href="/chat?username=' + thisUserObject.username + '">Chat !</a><br><br>';
+        builderAction += '<a href="/users/edit/' + thisUserObject._id + '">Edit</a></td><br><br>';
     }
     $('#actionUser').html(builderAction);
 
