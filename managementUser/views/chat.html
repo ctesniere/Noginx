@@ -10,10 +10,10 @@
                 <a href="/users/search">Rechercher un utilisateur</a>
         </ul>
 
-<script src="http://localhost:3001/socket.io/socket.io.js"></script>
+<script src="http://10.66.125.219:3001/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script>
-	var socket = io.connect('http://localhost:3001');
+	var socket = io.connect('http://10.66.125.219:3001');
 
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
@@ -29,7 +29,9 @@
 	// listener, whenever the server emits 'updatechat', this updates the chat body
 	socket.on('updatechat', function (username, data) {
 		var currentDateTime = new Date();
-		$('#conversation').append('<b> ['+ currentDateTime.getHours() + ':' + currentDateTime.getMinutes() + '] ' + username + ':</b> ' + data + '<br>');
+		var minutes = currentDateTime.getMinutes();
+		if (minutes<10) {minutes = "0" + minutes}
+		$('#conversation').append('<b> ['+ currentDateTime.getHours() + ':' + minutes + '] ' + username + ':</b> ' + data + '<br>');
 	});
 
 	// listener, whenever the server emits 'updateusers', this updates the username list
