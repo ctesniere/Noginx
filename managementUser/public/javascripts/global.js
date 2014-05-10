@@ -272,9 +272,7 @@ function deleteUser(event) {
 // Add User
 function getRandomUser() {
 
-
-    for (var i = 0; i < 10; ++i) {
-        $.getJSON('http://api.randomuser.me/?results=10', function( data ) {
+        $.getJSON('http://api.randomuser.me/?results=20', function( data ) {
 
             $.each(data.results, function(){
                 // If it is, compile all user info into one object
@@ -285,7 +283,7 @@ function getRandomUser() {
                     'age': this.user.dob,
                     'location': this.user.location.city + ", " + this.user.state,
                     'gender': this.user.gender,
-                    'password': this.user.password,
+                    'password': "toto",
                     'picture': this.user.picture
                 }
 
@@ -299,5 +297,5 @@ function getRandomUser() {
             });
 
         });
-    }
 };
+
