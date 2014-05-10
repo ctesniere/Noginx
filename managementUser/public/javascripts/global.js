@@ -6,6 +6,7 @@ $(document).ready(function() {
 
     // Initialise la table des infos des utilisateurs
     getListUser();
+    //getRandomUser();
 
     // Ajout de l'evenement pour le click
     $('#btnAddUser').on('click', addUser);
@@ -258,4 +259,44 @@ function deleteUser(event) {
         return false;
     }
 
+};
+
+
+
+
+
+
+
+
+// Add User
+function getRandomUser() {
+
+
+    for (var i = 0; i < 10; ++i) {
+        $.getJSON('http://api.randomuser.me/?results=10', function( data ) {
+
+            $.each(data.results, function(){
+                // If it is, compile all user info into one object
+                var newUser = {
+                    'username': this.user.username,
+                    'email': this.user.email,
+                    'fullname': this.user.name.first + " " + this.user.name.last,
+                    'age': this.user.dob,
+                    'location': this.user.location.city + ", " + this.user.state,
+                    'gender': this.user.gender,
+                    'password': this.user.password,
+                    'picture': this.user.picture
+                }
+
+                // Use AJAX to post the object to our adduser service
+                console.log($.ajax({
+                    type: 'POST',
+                    data: newUser,
+                    url: '/users/add',
+                    dataType: 'JSON'
+                }).done(function( response ) {}));
+            });
+
+        });
+    }
 };
