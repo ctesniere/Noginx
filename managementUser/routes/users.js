@@ -113,13 +113,15 @@ router.get('/search', function(req, res) {
  * method - POST
  */
 router.post('/search', function(req, res) {
-    req.db.collection(config.mongo.table.userlist).find({username : {$regex: req.body.username}}, {sort: [['username',1]]}).toArray(function(err, items) {
-        if (err) throw err;
-        console.log(items);
-        res.json(items);
-//        res.render('search', {
-//            title : "Rechercher un utilisateur",
-//            items : items});
+    console.log(req.body);
+    req.db.collection(config.mongo.table.userlist).find(
+        { $and: [
+            {username : {$regex: req.body.username}},
+            {email :{$regex: req.body.email}}]},
+        {sort: [['username',1]]})
+        .toArray(function(err, items) {
+            if (err) throw err;
+            res.json(items);
     });
 });
 

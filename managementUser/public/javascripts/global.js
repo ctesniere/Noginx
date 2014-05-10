@@ -21,7 +21,9 @@ $(document).ready(function() {
     };
 });
 
-// Remplie la table des users
+/**
+ * Remplie la table des users
+ */
 function populateTable(data) {
     userListData = data;
     var tableContent = '';
@@ -35,7 +37,7 @@ function populateTable(data) {
 };
 
 /**
- * Recupere la liste de tous les utilisateurs
+ * Recupere la liste de tous les utilisateurs en AJAX
  */
 function getListUser() {
     $.getJSON( '/users/list', function( data ) {
@@ -52,13 +54,13 @@ function showUserInfo(event) {
     // Retrieve username from link rel attribute
     var thisUserName = $(this).attr('rel');
 
-    // Get Index of object based on id value
+    // Recupere l'objet basé sur la valeur de l'index
     var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.username; }).indexOf(thisUserName);
 
-    // Get our User Object
+    // Recupere votre objet User
     var thisUserObject = userListData[arrayPosition];
 
-    //Populate Info Box
+    // Remplie les info de l'user
     $('#userInfoUserName').text(thisUserObject.username);
     $('#userInfoEmail').text(thisUserObject.email);
     $('#userInfoName').text(thisUserObject.fullname);
@@ -66,13 +68,10 @@ function showUserInfo(event) {
     $('#userInfoGender').text(thisUserObject.gender);
     $('#userInfoLocation').text(thisUserObject.location);
     var builderAction = "";
-    if (true) { // use cookie
-        builderAction += '<a href="#" class="linkdeleteuser" rel="' + thisUserObject._id + '">Delete</a>';
-        builderAction += ' | ';
-        builderAction += '<a href="/users/edit/' + thisUserObject._id + '">Edit</a></td>';
-        builderAction += ' | ';
-        builderAction += '<a href="/chat?username=' + thisUserObject.username + '">Chat !</a>';
-        builderAction += '<br><br>';
+    if (true) { // TODO use cookie
+        builderAction += '<a href="#" class="linkdeleteuser" rel="' + thisUserObject._id + '">Delete</a> | ';
+        builderAction += '<a href="/users/edit/' + thisUserObject._id + '">Edit</a></td> | ';
+        builderAction += '<a href="/chat?username=' + thisUserObject.username + '">Chat !</a><br><br>';
     }
     $('#actionUser').html(builderAction);
 
@@ -146,7 +145,8 @@ function searchUser(event) {
 
     // If it is, compile all user info into one object
     var search = {
-        'username': $('#searchUser fieldset input#inputUserName').val()
+        'username': $('#searchUser fieldset input#inputUserName').val(),
+        'email': $('#searchUser fieldset input#inputUserEmail').val()
     }
 
     // Use AJAX to post the object to our adduser service
