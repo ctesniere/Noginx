@@ -84,6 +84,7 @@ function showUserInfo(event) {
     }
     $('#messageUser').html(builderMessage);
 
+    $('#pictureUser').html("");
     if (thisUserObject.picture != null && thisUserObject.picture.length > 0) {
         $('#pictureUser').html('<img src="' + thisUserObject.picture + '" class="img-circle"><br><br>');
     }
