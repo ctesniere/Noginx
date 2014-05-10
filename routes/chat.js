@@ -20,7 +20,6 @@ router.get('/', function (req, res) {
 
             req.db.collection(config.mongo.table.userlist).update({username:socket.username}, {'$push':{message:data}}, function(err) {
                 if (err) throw err;
-                console.log('Updated!');
             });
         });
 

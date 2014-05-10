@@ -42,7 +42,6 @@ router.post('/add', function(req, res) {
     req.db.collection(config.mongo.table.userlist).find({$or : [{"username":req.body.username, "email":req.body.email}]}).toArray(function (err, items) {
         if (items.length == null || items.length == 0) {
             req.db.collection(config.mongo.table.userlist).insert(req.body, function(err, result){
-                if (err) throw err;
                 res.send(
                     (err === null) ? { msg: '' } : { msg: err }
                 );

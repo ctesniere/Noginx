@@ -34,6 +34,7 @@ router.post('/connect', function (req, res) {
                 .findOne({ $and: [{username: req.body.username}, {password: req.body.password}]}, function(err, item) {
             if (err != null || item != null) {
                 res.cookie('user', item, { maxAge: config.cookie.maxAge, httpOnly: false });
+                res.cookie('username', item.username, { maxAge: config.cookie.maxAge, httpOnly: false });
                 res.redirect('/');
             } else {
                 res.render('connect', {

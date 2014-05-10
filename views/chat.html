@@ -13,10 +13,10 @@
             </li>
         </ul>
 
-<script src="http://10.66.126.17:3001/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:3001/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script>
-	var socket = io.connect('http://10.66.126.17:3001');
+	var socket = io.connect('http://127.0.0.1:3001');
 
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
@@ -34,7 +34,25 @@
 		var currentDateTime = new Date();
 		var minutes = currentDateTime.getMinutes();
 		if (minutes<10) {minutes = "0" + minutes}
-		$('#conversation').append('<b> ['+ currentDateTime.getHours() + ':' + minutes + '] ' + username + ':</b> ' + data + '<br>');
+
+
+        // Message privé
+        if (data.indexOf("[") > -1) {
+            var userMsgPrive = data.split("[");
+            userMsgPrive = userMsgPrive[1];
+            if (data.indexOf("]") > -1) {
+                userMsgPrive = userMsgPrive.split("]");
+                console.log(userMsgPrive[0]);
+
+                if (userMsgPrive[0] == getUsernameFromCookie() || username == getUsernameFromCookie()) {
+                    $('#conversation').append('<i class="pmMsg"><b> ['+ currentDateTime.getHours() + ':' + minutes + '] ' + username + ':</b> ' + data + '</i><br>');
+                }
+            } else {
+                $('#conversation').append('<b> ['+ currentDateTime.getHours() + ':' + minutes + '] ' + username + ':</b> ' + data + '<br>');
+            }
+        } else {
+            $('#conversation').append('<b> ['+ currentDateTime.getHours() + ':' + minutes + '] ' + username + ':</b> ' + data + '<br>');
+        }
 	});
 
 	// listener, whenever the server emits 'updateusers', this updates the username list
@@ -57,7 +75,8 @@
 			if(message.trim()) {
                 var msg = {
                     message: message,
-                    date: new Date().getTime()
+                    date: new Date().getTime(),
+                    username: getUsernameFromCookie()
                 }
 				socket.emit('sendchat', msg);
 			}
@@ -95,11 +114,11 @@
 	}
 
 </script>
-<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
+<div style="float:left;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
 	<b>USERS</b>
 	<div id="users"></div>
 </div>
-<div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+<div style="float:left;width:500px;height:250px;overflow:scroll-y;padding:10px;">
 	<div id="conversation"></div>
 	<input id="data" style="width:200px;" />
 	<input type="button" id="datasend" value="send" />

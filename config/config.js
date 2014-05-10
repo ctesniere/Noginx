@@ -8,7 +8,7 @@ var Config = {
             messages:"messages"
         }
     },
-    process_port: 3002,
+    process_port: 3000,
     cookie: {
         maxAge: 900000
     },
