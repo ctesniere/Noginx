@@ -57,7 +57,7 @@
 			if(message.trim()) {
                 var msg = {
                     message: message,
-                    date: new Date()
+                    date: new Date().getTime()
                 }
 				socket.emit('sendchat', msg);
 			}

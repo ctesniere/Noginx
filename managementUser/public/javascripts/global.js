@@ -79,7 +79,7 @@ function showUserInfo(event) {
     var builderMessage = "";
     if (thisUserObject.message != null && thisUserObject.message.length > 0) {
         for (var i = 0; i < thisUserObject.message.length; ++i) {
-            builderMessage += '<div>' + thisUserObject.message[i].date + "<br>" + thisUserObject.message[i].message + '</div><br>';
+            builderMessage += '<div><i>' + convertTimeStampWithTime(thisUserObject.message[i].date) + "</i><br>" + thisUserObject.message[i].message + '</div><br>';
         }
     }
     $('#messageUser').html(builderMessage);
@@ -265,10 +265,6 @@ function deleteUser(event) {
 
 
 
-
-
-
-
 // Add User
 function getRandomUser() {
 
@@ -280,8 +276,8 @@ function getRandomUser() {
                     'username': this.user.username,
                     'email': this.user.email,
                     'fullname': this.user.name.first + " " + this.user.name.last,
-                    'age': this.user.dob,
-                    'location': this.user.location.city + ", " + this.user.state,
+                    'age': convertTimeStamp(this.user.dob),
+                    'location': this.user.location.city + ", " + this.user.location.state,
                     'gender': this.user.gender,
                     'password': "toto",
                     'picture': this.user.picture
@@ -299,3 +295,15 @@ function getRandomUser() {
         });
 };
 
+
+
+function convertTimeStamp(timestamp) {
+
+    var date = new Date(timestamp * 1000);
+    return date.getDay() + "/" + (date.getMonth()+1) + "/" + date.getYear();
+}
+
+function convertTimeStampWithTime(timestamp) {
+    var date = new Date(timestamp);
+    return date.getDay() + "/" + (date.getMonth()+1) + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}
