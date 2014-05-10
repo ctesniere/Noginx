@@ -3,7 +3,9 @@ var config = require('../config/config');
 var router = express.Router();
 
 /**
- * GET home page
+ * home page
+ * url - /
+ * method - GET
  */
 router.get('/', function (req, res) {
     res.render('index', { title: 'Liste des utilisateurs' });
@@ -56,17 +58,6 @@ router.post('/connect', function (req, res) {
 router.get('/disconnect', function (req, res) {
     res.cookie('user', '', { maxAge: config.cookie.maxAge, httpOnly: false });
     res.redirect('/');
-});
-
-/**
- * POST to newMsg
- */
-router.post('/newMsg', function (req, res) {
-    req.db.collection(config.mongo.table.messages).insert(req.body, function (err, result) {
-        res.send(
-            (err === null) ? { msg: '' } : { msg: err }
-        );
-    });
 });
 
 

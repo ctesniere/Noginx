@@ -25,7 +25,8 @@ router.get('/new', function(req, res) {
  * method - GET
  */
 router.get('/list', function(req, res) {
-    req.db.collection(config.mongo.table.userlist).find().toArray(function (err, items) {
+    // TODO Probleme avec le Order
+    req.db.collection(config.mongo.table.userlist).find().sort({"message.date":-1}).limit(5).toArray(function (err, items) {
         if (err) throw err;
         res.json(items);
     });

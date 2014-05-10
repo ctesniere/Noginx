@@ -78,7 +78,7 @@ function showUserInfo(event) {
     var builderMessage = "";
     if (thisUserObject.message != null && thisUserObject.message.length > 0) {
         for (var i = 0; i < thisUserObject.message.length; ++i) {
-            builderMessage += '<div>' + thisUserObject.message[i] + '</div>';
+            builderMessage += '<div>' + thisUserObject.message[i].date + "<br>" + thisUserObject.message[i].message + '</div><br>';
         }
     }
     $('#messageUser').html(builderMessage);

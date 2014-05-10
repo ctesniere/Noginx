@@ -4,6 +4,11 @@ var router = express.Router();
 
 var usernames = {};
 
+/**
+ * Affiche le tchat
+ * url - /chat
+ * method - GET
+ */
 router.get('/', function (req, res) {
     var app = express();
 
@@ -11,8 +16,9 @@ router.get('/', function (req, res) {
     io = io.listen(app.listen(config.socket_io.port));
     io.sockets.on('connection', function (socket) {
         socket.on('sendchat', function (data) {
-            io.sockets.emit('updatechat', socket.username, data);
-            req.db.collection('userlist').update({username:socket.username}, {'$push':{message:data}}, function(err) {
+            io.sockets.emit('updatechat', socket.username, data.message);
+
+            req.db.collection(config.mongo.table.userlist).update({username:socket.username}, {'$push':{message:data}}, function(err) {
                 if (err) throw err;
                 console.log('Updated!');
             });
