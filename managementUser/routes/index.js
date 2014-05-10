@@ -1,7 +1,6 @@
 var express = require('express');
-var router = express.Router();
 var config = require('../config/config');
-var user = null;
+var router = express.Router();
 
 /**
  * GET home page

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>title</title>
@@ -7,13 +8,15 @@
             <li>
                 <a href="/">Accueil</a>
                 <a href="/users/new">Ajouter un utilisateur</a>
-                <a href="/users/search">Rechercher un utilisateur</a>
+                <a href="/chat">Tchat</a>
+                <a href="/disconnect">Déconnecter</a>
+            </li>
         </ul>
 
-<script src="http://10.66.125.219:3001/socket.io/socket.io.js"></script>
+<script src="http://10.66.126.17:3001/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script>
-	var socket = io.connect('http://10.66.125.219:3001');
+	var socket = io.connect('http://10.66.126.17:3001');
 
 	// on connection to server, ask for user's name with an anonymous callback
 	socket.on('connect', function(){
