@@ -26,7 +26,7 @@ router.get('/new', function(req, res) {
  */
 router.get('/list', function(req, res) {
     // TODO Probleme avec le Order
-    req.db.collection(config.mongo.table.userlist).find().sort({"message.date":-1}).limit(5).toArray(function (err, items) {
+    req.db.collection(config.mongo.table.userlist).find().sort({"message.date":-1}).toArray(function (err, items) {
         if (err) throw err;
         res.json(items);
     });
@@ -38,13 +38,18 @@ router.get('/list', function(req, res) {
  * method - GET
  */
 router.post('/add', function(req, res) {
-    // TODO Vérifier si l'user existe déjà en BDD
-    // TODO Vérifier si toutes les données importantes sont saisie
-    req.db.collection(config.mongo.table.userlist).insert(req.body, function(err, result){
-        if (err) throw err;
-        res.send(
-            (err === null) ? { msg: '' } : { msg: err }
-        );
+    // TODO Vérifier si toutes les données importantes sont presente
+    req.db.collection(config.mongo.table.userlist).find({$or : [{"username":req.body.username, "email":req.body.email}]}).toArray(function (err, items) {
+        if (items.length == null || items.length == 0) {
+            req.db.collection(config.mongo.table.userlist).insert(req.body, function(err, result){
+                if (err) throw err;
+                res.send(
+                    (err === null) ? { msg: '' } : { msg: err }
+                );
+            });
+        } else {
+            res.send({ msg: "L'utilisateur existe déjà" });
+        }
     });
 });
 
