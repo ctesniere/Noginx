@@ -5,10 +5,11 @@ var userListData = [];
 $(document).ready(function() {
 
     // Initialise la table des infos des utilisateurs
-    populateTable();
+    getListUser();
 
     // Ajout de l'evenement pour le click
     $('#btnAddUser').on('click', addUser);
+    $('#btnSearch').on('click', searchUser);
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     $('#userInfo').on('click', 'a.linkdeleteuser', deleteUser);
 
@@ -18,34 +19,29 @@ $(document).ready(function() {
         if (alert[i].innerText)
             alert[i].style.display = "block";
     };
-//
-//    $('body').find('.error').each(function(idx, item) {
-//        if (/^\s*$/.test(item.text())){
-//            item.css({
-//                display : 'block'
-//            })
-//         }
-//    });
-
 });
 
-// Functions =============================================================
-
 // Remplie la table des users
-function populateTable() {
+function populateTable(data) {
+    userListData = data;
     var tableContent = '';
-    $.getJSON( '/users/list', function( data ) {
-        userListData = data;
-        console.log(data);
-        $.each(data, function(){
-            tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
-            tableContent += '<td>' + this.email + '</td>';
-            tableContent += '</tr>';
-        });
-        $('#userList table tbody').html(tableContent);
+    $.each(data, function(){
+        tableContent += '<tr>';
+        tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '" title="Show Details">' + this.username + '</td>';
+        tableContent += '<td>' + this.email + '</td>';
+        tableContent += '</tr>';
     });
+    $('#userList table tbody').html(tableContent);
 };
+
+/**
+ * Recupere la liste de tous les utilisateurs
+ */
+function getListUser() {
+    $.getJSON( '/users/list', function( data ) {
+        populateTable(data);
+    });
+}
 
 // Show User Info
 function showUserInfo(event) {
@@ -131,8 +127,7 @@ function addUser(event) {
                     $('#msgDanger').removeClass("visible");
                     $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");;
 
-                }
-                else {
+                } else {
 
                     // If something goes wrong, alert the error message that our service returned
                     $('#msgDanger').text('Error: ' + response.msg).addClass("visible");;
@@ -144,6 +139,38 @@ function addUser(event) {
     }
 };
 
+
+// Add User
+function searchUser(event) {
+    event.preventDefault();
+
+    // If it is, compile all user info into one object
+    var search = {
+        'username': $('#searchUser fieldset input#inputUserName').val()
+    }
+
+    // Use AJAX to post the object to our adduser service
+    $.ajax({
+        type: 'POST',
+        data: search,
+        url: '/users/search',
+        dataType: 'JSON'
+    }).done(function( response ) {
+            console.log(response);
+            populateTable(response);
+            // Check for successful (blank) response
+            if (response.msg === '') {
+
+                // Clear the form inputs
+                $('#addUser fieldset input').val('');
+
+            } else {
+
+                // If something goes wrong, alert the error message that our service returned
+                $('#msgDanger').text('Error: ' + response.msg).addClass("visible");;
+            }
+        });
+};
 
 // Add User
 function edit(event) {
@@ -183,8 +210,7 @@ function edit(event) {
                     $('#addUser fieldset input').val('');
                     $('#msgDanger').removeClass("visible");
                     $('#msgSuccess').text("Confirmation: Nouvel utilisateur enregistré !").addClass("visible");;
-                }
-                else {
+                } else {
 
                     // If something goes wrong, alert the error message that our service returned
                     $('#msgDanger').text('Error: ' + response.msg).addClass("visible");;
@@ -225,8 +251,7 @@ function deleteUser(event) {
                 populateTable();
             });
 
-    }
-    else {
+    } else {
         return false;
     }
 

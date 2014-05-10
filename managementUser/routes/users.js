@@ -37,7 +37,8 @@ router.get('/list', function(req, res) {
  * method - GET
  */
 router.post('/add', function(req, res) {
-
+    // TODO Vérifier si l'user existe déjà en BDD
+    // TODO Vérifier si toutes les données importantes sont saisie
     req.db.collection(config.mongo.table.userlist).insert(req.body, function(err, result){
         if (err) throw err;
         res.send(
@@ -81,45 +82,18 @@ router.get('/edit/:id([0-9a-f]{24})', function(req, res) {
 router.post('/edit', function(req, res) {
 
 console.log(req.body);
-    req.db.collection(config.mongo.table.userlist).update({_id: ObjectId(req.body.id)}, 
-
-        {$set: {username:req.body.username,
-      fullname:req.body.fullname,
-      location:req.body.location,
-      email:req.body.email,
-      age:req.body.age,
-      gender:req.body.gender}}, function(err) {
+    req.db.collection(config.mongo.table.userlist).update({_id: ObjectId(req.body.id)}, {$set: {
+        username:req.body.username,
+        fullname:req.body.fullname,
+        location:req.body.location,
+        email:req.body.email,
+        age:req.body.age,
+        gender:req.body.gender}}, function(err) {
         if(err) {
             return console.log('update error', err);
         }
     });
-/*
-    req.db.collection(config.mongo.table.userlist).findAndModify({
-    query: { _id: ObjectId(req.body.id)},
-    sort: { rating: 1 },
-    update: { $inc: { username:req.body.username,
-      fullname:req.body.fullname,
-      location:req.body.location,
-      email:req.body.email,
-      age:req.body.age,
-      gender:req.body.gender } }
-});
-*/
-/*
-    req.db.collection(config.mongo.table.userlist).update(
-   { _id: ObjectId(req.body.id) },
-   {
-      username:req.body.username,
-      fullname:req.body.fullname,
-      location:req.body.location,
-      email:req.body.email,
-      age:req.body.age,
-      gender:req.body.gender
-   },
-   { upsert: true }
-   );
-*/
-    
+
     res.render('index', { title: 'Gestion des utilisateurs' });
 });
 /**
@@ -141,9 +115,11 @@ router.get('/search', function(req, res) {
 router.post('/search', function(req, res) {
     req.db.collection(config.mongo.table.userlist).find({username : {$regex: req.body.username}}, {sort: [['username',1]]}).toArray(function(err, items) {
         if (err) throw err;
-        res.render('search', {
-            title : "Rechercher un utilisateur",
-            items : items});
+        console.log(items);
+        res.json(items);
+//        res.render('search', {
+//            title : "Rechercher un utilisateur",
+//            items : items});
     });
 });
 
