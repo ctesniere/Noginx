@@ -13,6 +13,7 @@ sudo npm install
 From a system prompt, start mongo by issuing the mongo command, as follows:
 
 ```
+mkdir data
 sudo mongod --dbpath ./data --port 27017
 ```
 
