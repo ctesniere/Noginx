@@ -34,4 +34,6 @@ db.userlist.insert([{"gender":"male","fullname":"Lance Peters","location":"new y
 
 ## Launching the application
 
+```
 nodemon bin/www
+```
