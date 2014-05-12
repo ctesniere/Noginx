@@ -17,7 +17,7 @@ mkdir data
 sudo mongod --dbpath ./data --port 27017
 ```
 
-Creation of the database
+Switch to a new database
 
 ```
 use nodetest
